@@ -7,17 +7,17 @@
 </head>
 <script>
     //once
-    function debouncePopulateDiv(){
-        setTimeout(function(){
-            populatrDiv()
-        },100);
-    }
+    // function debouncePopulateDiv(){
+    //     setTimeout(function(){
+    //         populatrDiv()
+    //     },100);
+    // }
    function populatrDiv(){
     const a=document.getElementById("firstnumber").value;
     const b=document.getElementById("Secondnumber").value;
       const element=document.getElementById("finalSum");
       //fetch
-      fetch("https://sum-server.100xdevs.com/sum?a=" + a+"&b=" +b)
+      fetch("http://localhost:3000/sum?a=" + a+"&b=" +b)
       .then(function(response){
         console.log(response);
         response.text()

@@ -1,46 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
 <body>
-  <input type="text" id="title" placeholder="Todo title"></input> <br /><br />
-  <input type="text" id="description" placeholder="Todo description"></input> <br /><br />
+   <script>
+    function markasdone(){
+       const parent=document.getElementById(todoId);
+       parent.child[2].innerHTML="Done!"; 
+    }
 
-  <div id="container">
-
-  </div>
-  <script>
-    function createChild(title, description, id) {
-      const child = document.createElement("div");
-      const firstGrandParent = document.createElement("div");
-      firstGrandParent.innerHTML = title;
-      const secondGrandParent = document.createElement("div");
-      secondGrandParent.innerHTML = description;
-      const thirdGrandParent = document.createElement("button");
-      thirdGrandParent.innerHTML = "Mark as done";
-      thirdGrandParent.setAttribute("onclick", `markAsDone(${id})`);
-      child.appendChild(firstGrandParent);
-      child.appendChild(secondGrandParent);
-      child.appendChild(thirdGrandParent)
-      child.setAttribute("id", id);
+    function createChild(){
+      const child=document.createElement("div");
+      const firstGrandchild=document.createElement("div");
+      firstGrandchild.innerHTML=title;
+      const secondGrandchild=document.createElement("div");
+      secondGrandchild.innerHTML=description;
+      const thirdGrandChild=document.createElement("button");
+      thirdGrandChild.innerHTML="Mark As Done";
+      thirdGrandChild.setAttribute("onclick",`markasdone(${id})`);
+      child.appendChild(firstGrandchild);
+      child.appendChild(secondGrandchild);
+      child.appendChild(thirdGrandChild);
+      child.appendChild("id",id);
       return child;
     }
-    // State will always be an array
-    // Every element of state would have a title, description and id
-    //
-    //
-    function updateDomAccToState(state) {
-        const parent = document.getElementById("container");
-        parent.innerHTML = "";
-        for (let i = 0; i<state.length; i++) {
-            const child = createChild(state[i].title, state[i].description, state[i].id);
-            parent.appendChild(child);
-        }
-    }
-    window.setInterval(async function() {
-        const res = await fetch("https://sum-server.100xdevs.com/todos")
-        const json = await res.json();
-        updateDomAccToState(json.todos)
-    }, 5000)
-  </script>
-</body>
 
+    function addTodo(){
+      const title=document.getElementById("title").value;
+      const description=document.getElementById("description").value;
+      console.log(title);
+      console.log(description);
+      //METHOD-----1 
+    //  const originalHTML=document.getElementById("container").innerHTML;
+    //  document.getElementById("container").innerHTML=originalHTML+`
+    //    <div>
+    //     <div>${title}</div>
+    //     <div>${description}</div>
+    //     <button>Mark as Done</button>
+    //  `  
+     let globalId=1;
+     const title1=document.getElementById("title").value;
+      const description1=document.getElementById("description").value;
+      const parent=document.getElementById("container");
+
+      parent.appendChild(createChild(title,description,globalId++));
+    }
+
+   </script>
+  <div>
+    <input id ="title" type="text" placeholder="title"></input><br><br>
+    <input id="description" type="text" placeholder="description"></input><br><br>
+   <button onclick="addTodo()">Add Todo</button>
+   <div id="container"></div>
+  </div>
+</body>
 </html>
